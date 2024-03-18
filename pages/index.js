@@ -1,7 +1,9 @@
+import ExampleTest from "@/components/ExampleText/ExampleText";
+
 export default function Home() {
   return (
     <>
-      <h1>Hello World!</h1>
+      <ExampleTest />
     </>
   );
 }
