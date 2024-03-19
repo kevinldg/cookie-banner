@@ -1,29 +1,26 @@
 import Cookies from "js-cookie";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 
 export default function CookieBanner() {
-  const [isAccepted, setAccepted] = useState(false);
+  const [isAccepted, setIsAccepted] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-
-  const router = useRouter();
 
   useEffect(() => {
     setIsMounted(true);
+
+    if (Cookies.get("cookieConsent")) {
+      setIsAccepted(true);
+    }
   }, []);
 
-  useEffect(() => {
-    router.replace(router.asPath, undefined, { scroll: false });
-  }, [isAccepted]);
-
   const handleAccept = () => {
-    setAccepted(true);
+    setIsAccepted(true);
     Cookies.set("cookieConsent", true, { expires: 365 });
   };
 
   const handleRemove = () => {
-    setAccepted(false);
-    Cookies.remove("cookieConsent", true, { expires: 365 });
+    setIsAccepted(false);
+    Cookies.remove("cookieConsent");
   };
 
   if (!isMounted) {
